@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About - StudentGuard AI</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <!-- Inter -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        :root {
+            --maroon: #5c1d2b;
+            --maroon-dark: #430b19;
+            --background: #faf9f6;
+            --surface: #ffffff;
+            --surface-soft: #f5f3ef;
+            --border: #e3ded9;
+            --text: #1d1b1b;
+            --text-muted: #706a68;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--background);
+            color: var(--text);
+            font-family: "Inter", Arial, sans-serif;
+            font-size: 13px;
+        }
+
+        /* ================================
+           NAVBAR
+        ================================= */
+
+        .navbar {
+            background: var(--maroon) !important;
+            min-height: 58px;
+            padding: 0;
+            box-shadow: 0 2px 10px rgba(40,20,25,.14);
+        }
+
+        .navbar .container {
+            max-width: 1180px;
+            min-height: 58px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: rgba(255,255,255,.13);
+            border: 1px solid rgba(255,255,255,.20);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 9px;
+            color: white;
+        }
+
+        .navbar-nav-custom {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            min-height: 34px;
+            padding: 7px 12px;
+            border-radius: 7px;
+            border: 1px solid transparent;
+            color: rgba(255,255,255,.88);
+            background: transparent;
+            text-decoration: none;
+            font-size: 10.5px;
+            font-weight: 500;
+            transition: .15s ease;
+        }
+
+        .nav-btn:hover {
+            color: white;
+            background: rgba(255,255,255,.10);
+            border-color: rgba(255,255,255,.18);
+        }
+
+        .nav-btn.active {
+            color: white;
+            background: rgba(255,255,255,.14);
+            border-color: rgba(255,255,255,.22);
+            font-weight: 600;
+        }
+
+        /* ================================
+           MAIN
+        ================================= */
+
+        .about-wrapper {
+            max-width: 980px;
+            margin: auto;
+            padding: 32px 20px 50px;
+        }
+
+        .hero {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 35px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 3px 12px rgba(45,30,30,.05);
+        }
+
+        .hero-icon {
+            width: 64px;
+            height: 64px;
+            margin: auto;
+            border-radius: 16px;
+            background: #eee5e7;
+            color: var(--maroon);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 29px;
+        }
+
+        .hero h1 {
+            margin-top: 18px;
+            font-size: 27px;
+            font-weight: 700;
+            color: var(--maroon);
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: 8px auto 0;
+            color: var(--text-muted);
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .about-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 18px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(45,30,30,.04);
+        }
+
+        .about-card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .about-card-header h4 {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .about-card-body {
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 10.5px;
+            line-height: 1.75;
+        }
+
+        .about-card-body strong {
+            color: var(--text);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .feature {
+            background: var(--surface-soft);
+            border-radius: 9px;
+            padding: 15px;
+        }
+
+        .feature-icon {
+            color: var(--maroon);
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .feature h6 {
+            font-size: 10.5px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text);
+        }
+
+        .feature p {
+            font-size: 9.5px;
+            margin: 0;
+            line-height: 1.55;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .tech-item {
+            padding: 12px;
+            background: var(--surface-soft);
+            border-radius: 8px;
+        }
+
+        .tech-name {
+            font-size: 10.5px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .tech-description {
+            font-size: 9px;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        .disclaimer {
+            background: #fff8e8;
+            border: 1px solid #ead8a7;
+            border-radius: 10px;
+            padding: 16px;
+            color: #715719;
+            font-size: 10px;
+            line-height: 1.65;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 10px;
+            padding: 18px;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 750px) {
+
+            .navbar .container {
+                padding: 0 14px;
+            }
+
+            .navbar-nav-custom {
+                gap: 3px;
+            }
+
+            .nav-btn {
+                padding: 7px 8px;
+            }
+
+            .nav-btn span {
+                display: none;
+            }
+
+            .nav-btn i {
+                font-size: 15px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 25px 18px;
+            }
+        }
+
+        @media (max-width: 400px) {
+
+            .navbar-brand span:last-child {
+                display: none;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- ==================================================
+     NAVBAR
+================================================== -->
+
+<nav class="navbar navbar-dark">
+
+    <div class="container">
+
+        <a href="/" class="navbar-brand">
+
+            <span class="brand-icon">
+                <i class="bi bi-shield-check"></i>
+            </span>
+
+            <span>StudentGuard AI</span>
+
+        </a>
+
+        <div class="navbar-nav-custom">
+
+            <a href="/" class="nav-btn">
+                <i class="bi bi-plus-circle"></i>
+                <span>New Prediction</span>
+            </a>
+
+            <a href="/dashboard" class="nav-btn">
+                <i class="bi bi-grid-1x2"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="/prediction-history" class="nav-btn">
+                <i class="bi bi-clock-history"></i>
+                <span>Prediction History</span>
+            </a>
+
+            <a href="/settings" class="nav-btn">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+            </a>
+
+            <a href="/about" class="nav-btn active">
+                <i class="bi bi-info-circle"></i>
+                <span>About</span>
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ==================================================
+     MAIN
+================================================== -->
+
+<main class="about-wrapper">
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-icon">
+            <i class="bi bi-shield-check"></i>
+        </div>
+
+        <h1>StudentGuard AI</h1>
+
+        <p>
+            An AI-based Student Dropout Risk Prediction System designed
+            to analyse relevant student information and classify
+            predicted dropout risk into Low, Medium, or High levels.
+        </p>
+
+    </section>
+
+
+    <!-- PROJECT OVERVIEW -->
+
+    <section class="about-card">
+
+        <div class="about-card-header">
+            <h4>
+                <i class="bi bi-lightbulb me-2"></i>
+                Project Overview
+            </h4>
+        </div>
+
+        <div class="about-card-body">
+
+            StudentGuard AI is a machine-learning based academic support
+            application developed to analyse student-related factors
+            and generate a dropout-risk prediction.
+
+            <br><br>
+
+            The system considers academic, attendance, engagement,
+            financial, support, and other relevant student attributes
+            before generating a prediction.
+
+        </div>
+
+    </section>
+
+
+    <!-- HOW IT WORKS -->
+
+    <section class="about-card">
+
+        <div class="about-card-header">
+            <h4>
+                <i class="bi bi-diagram-3 me-2"></i>
+                How the System Works
+            </h4>
+        </div>
+
+        <div class="about-card-body">
+
+            <div class="feature-grid">
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        <i class="bi bi-person-lines-fill"></i>
+                    </div>
+
+                    <h6>1. Student Information</h6>
+
+                    <p>
+                        Student-related academic, attendance,
+                        engagement, financial and support information
+                        is provided to the system.
+                    </p>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        <i class="bi bi-cpu"></i>
+                    </div>
+
+                    <h6>2. Machine Learning</h6>
+
+                    <p>
+                        The trained machine-learning model processes
+                        the supplied features and produces a prediction.
+                    </p>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+
+                    <h6>3. Risk Result</h6>
+
+                    <p>
+                        The system presents the predicted risk level
+                        and dropout probability.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RISK CATEGORIES -->
+
+    <section class="about-card">
+
+        <div class="about-card-header">
+            <h4>
+                <i class="bi bi-bar-chart-steps me-2"></i>
+                Risk Categories
+            </h4>
+        </div>
+
+        <div class="about-card-body">
+
+            <div class="feature-grid">
+
+                <div class="feature">
+
+                    <div class="feature-icon text-success">
+                        <i class="bi bi-check-circle"></i>
+                    </div>
+
+                    <h6>Low Risk</h6>
+
+                    <p>
+                        Lower predicted dropout probability based
+                        on the model's classification threshold.
+                    </p>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-icon text-warning">
+                        <i class="bi bi-exclamation-circle"></i>
+                    </div>
+
+                    <h6>Medium Risk</h6>
+
+                    <p>
+                        Intermediate predicted dropout probability
+                        requiring attention and monitoring.
+                    </p>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-icon text-danger">
+                        <i class="bi bi-exclamation-triangle"></i>
+                    </div>
+
+                    <h6>High Risk</h6>
+
+                    <p>
+                        Higher predicted dropout probability based
+                        on the configured model threshold.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MACHINE LEARNING -->
+
+    <section class="about-card">
+
+        <div class="about-card-header">
+            <h4>
+                <i class="bi bi-robot me-2"></i>
+                Machine Learning
+            </h4>
+        </div>
+
+        <div class="about-card-body">
+
+            The project uses supervised machine-learning classification
+            for dropout-risk prediction.
+
+            <br><br>
+
+            The implemented model pipeline performs preprocessing of
+            numerical and categorical features before generating
+            predictions.
+
+            <br><br>
+
+            The project includes:
+
+            <ul>
+                <li>Logistic Regression</li>
+                <li>Random Forest</li>
+                <li>Numerical feature preprocessing</li>
+                <li>Categorical feature encoding</li>
+                <li>Model evaluation and comparison</li>
+            </ul>
+
+        </div>
+
+    </section>
+
+
+    <!-- DATASET -->
+
+    <section class="about-card">
+
+        <div class="about-card-header">
+            <h4>
+                <i class="bi bi-database me-2"></i>
+                Dataset
+            </h4>
+        </div>
+
+        <div class="about-card-body">
+
+            The current project uses a
+
+            <strong>synthetic dataset</strong>
+
+            created for the StudentGuard AI project.
+
+            <br><br>
+
+            The dataset contains approximately 1,000 student records
+            with academic, attendance, engagement, financial,
+            support and related attributes.
+
+            <br><br>
+
+            Because the dataset is synthetic, the predictions should
+            be treated as project and demonstration results rather
+            than predictions validated on real institutional student data.
+
+        </div>
+
+    </section>
+
+
+    <!-- TECHNOLOGY -->
+
+    <section class="about-card">
+
+        <div class="about-card-header">
+            <h4>
+                <i class="bi bi-stack me-2"></i>
+                Technology Stack
+            </h4>
+        </div>
+
+        <div class="about-card-body">
+
+            <div class="tech-grid">
+
+                <div class="tech-item">
+                    <div class="tech-name">
+                        Python
+                    </div>
+                    <div class="tech-description">
+                        Main programming language.
+                    </div>
+                </div>
+
+                <div class="tech-item">
+                    <div class="tech-name">
+                        Scikit-learn
+                    </div>
+                    <div class="tech-description">
+                        Machine-learning model development.
+                    </div>
+                </div>
+
+                <div class="tech-item">
+                    <div class="tech-name">
+                        FastAPI
+                    </div>
+                    <div class="tech-description">
+                        Backend API and application server.
+                    </div>
+                </div>
+
+                <div class="tech-item">
+                    <div class="tech-name">
+                        SQLite
+                    </div>
+                    <div class="tech-description">
+                        Prediction record storage.
+                    </div>
+                </div>
+
+                <div class="tech-item">
+                    <div class="tech-name">
+                        Bootstrap
+                    </div>
+                    <div class="tech-description">
+                        Responsive frontend interface.
+                    </div>
+                </div>
+
+                <div class="tech-item">
+                    <div class="tech-name">
+                        Chart.js
+                    </div>
+                    <div class="tech-description">
+                        Dashboard data visualisation.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DISCLAIMER -->
+
+    <section class="disclaimer">
+
+        <strong>
+            <i class="bi bi-info-circle me-1"></i>
+            Important Note
+        </strong>
+
+        <br>
+
+        StudentGuard AI is an academic/project-oriented
+        student dropout risk prediction system.
+
+        Its predictions are intended to support analysis and
+        early identification of potentially concerning patterns.
+
+        The prediction should not be treated as a definitive
+        determination that a student will drop out.
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    StudentGuard AI
+    &nbsp;•&nbsp;
+    Student Dropout Risk Prediction System
+
+</footer>
+
+</body>
+</html>

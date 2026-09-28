@@ -1,0 +1,3587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StudentGuard AI</title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+    ====================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         BOOTSTRAP ICONS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+
+    <!-- =====================================================
+         INTER FONT
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <style>
+
+        /* =========================================================
+           STUDENTGUARD AI
+           CLEAN MAROON + BEIGE UI
+        ========================================================= */
+
+        :root {
+
+            --maroon: #5c1d2b;
+            --maroon-dark: #430b19;
+            --maroon-light: #8b4655;
+
+            --background: #faf9f6;
+            --surface: #ffffff;
+            --surface-soft: #f5f3ef;
+
+            --border: #e3ded9;
+            --border-dark: #d2cbc5;
+
+            --text: #1d1b1b;
+            --text-muted: #706a68;
+
+            --low-bg: #e5f3eb;
+            --low-text: #17633a;
+
+            --medium-bg: #fff1d2;
+            --medium-text: #875d00;
+
+            --high-bg: #f8dfe2;
+            --high-text: #9a2635;
+        }
+
+
+        /* =========================================================
+           GLOBAL
+        ========================================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+
+            margin: 0;
+
+            background: var(--background);
+
+            color: var(--text);
+
+            font-family: "Inter", Arial, sans-serif;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================================================
+           NAVBAR
+        ========================================================= */
+
+        .navbar {
+
+            background: var(--maroon) !important;
+
+            min-height: 58px;
+
+            padding: 0;
+
+            box-shadow:
+                0 2px 10px rgba(40, 20, 25, 0.14);
+        }
+
+
+        .navbar .container {
+
+            max-width: 1180px;
+
+            min-height: 58px;
+
+            padding-left: 20px;
+
+            padding-right: 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        /* =========================================================
+           BRAND
+        ========================================================= */
+
+        .navbar-brand {
+
+            color: white !important;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            letter-spacing: -0.2px;
+
+            display: flex;
+
+            align-items: center;
+
+            text-decoration: none;
+
+            white-space: nowrap;
+        }
+
+
+        .navbar-brand:hover {
+
+            color: white !important;
+
+            text-decoration: none;
+        }
+
+
+        .brand-icon {
+
+            width: 30px;
+
+            height: 30px;
+
+            border-radius: 8px;
+
+            background: rgba(255,255,255,0.13);
+
+            border: 1px solid rgba(255,255,255,0.20);
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin-right: 8px;
+
+            color: white;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================================
+           NAVIGATION
+        ========================================================= */
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+        }
+
+
+        .nav-btn {
+
+            min-height: 35px;
+
+            padding: 7px 12px;
+
+            border-radius: 7px;
+
+            border: 1px solid rgba(255,255,255,0.35);
+
+            background: transparent;
+
+            color: rgba(255,255,255,0.92) !important;
+
+            text-decoration: none;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            font-size: 10.5px;
+
+            font-weight: 500;
+
+            white-space: nowrap;
+
+            transition:
+                background 0.15s ease,
+                border-color 0.15s ease,
+                color 0.15s ease,
+                transform 0.15s ease;
+        }
+
+
+        .nav-btn i {
+
+            font-size: 13px;
+
+            line-height: 1;
+        }
+
+
+        .nav-btn:hover {
+
+            background: rgba(255,255,255,0.10);
+
+            border-color: rgba(255,255,255,0.65);
+
+            color: white !important;
+
+            text-decoration: none;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* CURRENT PAGE */
+
+        .nav-btn.active {
+
+            background: white;
+
+            border-color: white;
+
+            color: var(--maroon) !important;
+
+            font-weight: 600;
+        }
+
+
+        .nav-btn.active:hover {
+
+            background: white;
+
+            border-color: white;
+
+            color: var(--maroon-dark) !important;
+
+            transform: none;
+        }
+
+
+        /* =========================================================
+           MAIN CONTAINER
+        ========================================================= */
+
+        .main-container {
+
+            width: 100%;
+
+            max-width: 1180px;
+
+            margin: 24px auto 45px;
+
+            padding: 0 20px;
+        }
+
+
+        /* =========================================================
+           PAGE HEADER
+        ========================================================= */
+
+        .header-card {
+
+            background: var(--surface);
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+
+            padding: 20px 22px;
+
+            margin-bottom: 16px;
+
+            box-shadow:
+                0 2px 8px rgba(40, 30, 25, 0.045);
+        }
+
+
+        .header-content {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+
+        .header-card h1 {
+
+            font-size: 23px;
+
+            line-height: 1.25;
+
+            font-weight: 600;
+
+            letter-spacing: -0.4px;
+
+            margin: 0 0 5px;
+
+            color: var(--text);
+        }
+
+
+        .header-card p {
+
+            font-size: 11px;
+
+            color: var(--text-muted);
+
+            margin: 0;
+        }
+
+
+        .header-label {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            padding: 6px 10px;
+
+            background: var(--surface-soft);
+
+            border: 1px solid var(--border);
+
+            border-radius: 6px;
+
+            color: var(--maroon);
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+        }
+
+
+        .status-dot {
+
+            width: 6px;
+
+            height: 6px;
+
+            background: #3b9b64;
+
+            border-radius: 50%;
+        }
+
+
+        /* =========================================================
+           TWO COLUMN LAYOUT
+        ========================================================= */
+
+        .prediction-layout {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 2.05fr)
+                minmax(300px, 0.95fr);
+
+            gap: 16px;
+
+            align-items: start;
+        }
+
+
+        /* =========================================================
+           COMMON CARDS
+        ========================================================= */
+
+        .form-card,
+        .bulk-card,
+        .result-card {
+
+            background: var(--surface);
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 2px 8px rgba(40, 30, 25, 0.045);
+        }
+
+
+        /* =========================================================
+           MANUAL CARD
+        ========================================================= */
+
+        .form-card {
+
+            padding: 20px;
+        }
+
+
+        .card-heading {
+
+            margin-bottom: 18px;
+
+            padding-bottom: 13px;
+
+            border-bottom: 1px solid #eeeae6;
+        }
+
+
+        .card-heading-row {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 10px;
+        }
+
+
+        .section-title {
+
+            font-size: 16px;
+
+            line-height: 1.3;
+
+            font-weight: 600;
+
+            color: var(--text);
+
+            margin: 0;
+        }
+
+
+        .section-description {
+
+            font-size: 10.5px;
+
+            color: var(--text-muted);
+
+            margin: 4px 0 0;
+        }
+
+
+        .section-number {
+
+            width: 25px;
+
+            height: 25px;
+
+            border-radius: 7px;
+
+            background: #f3e9eb;
+
+            color: var(--maroon);
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            flex-shrink: 0;
+        }
+
+
+        /* =========================================================
+           FORM
+        ========================================================= */
+
+        .form-group {
+
+            margin-bottom: 13px;
+        }
+
+
+        .form-label {
+
+            display: block;
+
+            font-size: 10px;
+
+            line-height: 1.4;
+
+            font-weight: 600;
+
+            color: #534b4c;
+
+            margin-bottom: 5px;
+        }
+
+
+        .form-control,
+        .form-select {
+
+            width: 100%;
+
+            height: 37px;
+
+            background: var(--surface-soft);
+
+            border: 1px solid var(--border-dark);
+
+            border-radius: 6px;
+
+            color: var(--text);
+
+            font-family: "Inter", Arial, sans-serif;
+
+            font-size: 11.5px;
+
+            padding: 7px 9px;
+
+            transition:
+                border-color 0.15s ease,
+                background 0.15s ease,
+                box-shadow 0.15s ease;
+        }
+
+
+        .form-control:hover,
+        .form-select:hover {
+
+            border-color: #b9a9ac;
+
+            background: #faf9f7;
+        }
+
+
+        .form-control:focus,
+        .form-select:focus {
+
+            background: white;
+
+            border-color: var(--maroon-light);
+
+            box-shadow:
+                0 0 0 2px rgba(92, 29, 43, 0.10);
+
+            outline: none;
+        }
+
+
+        .form-control::placeholder {
+
+            color: #9b9492;
+        }
+
+
+        /* =========================================================
+           COLLAPSIBLE SECTIONS
+        ========================================================= */
+
+        .collapsible-section {
+
+            margin-top: 8px;
+
+            margin-bottom: 10px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 7px;
+
+            background: #fcfbf9;
+
+            overflow: hidden;
+        }
+
+
+        .collapsible-header {
+
+            width: 100%;
+
+            border: none;
+
+            background: transparent;
+
+            padding: 11px 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            text-align: left;
+
+            cursor: pointer;
+
+            color: var(--text);
+
+            transition:
+                background 0.15s ease;
+        }
+
+
+        .collapsible-header:hover {
+
+            background: #f6f3f0;
+        }
+
+
+        .collapsible-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+        }
+
+
+        .collapsible-number {
+
+            width: 21px;
+
+            height: 21px;
+
+            border-radius: 5px;
+
+            background: #f3e9eb;
+
+            color: var(--maroon);
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 9px;
+
+            font-weight: 700;
+        }
+
+
+        .collapsible-text {
+
+            font-size: 10.5px;
+
+            font-weight: 600;
+        }
+
+
+        .collapsible-description {
+
+            font-size: 9px;
+
+            color: var(--text-muted);
+
+            margin-left: 29px;
+
+            margin-top: 1px;
+        }
+
+
+        .collapsible-arrow {
+
+            font-size: 11px;
+
+            color: var(--maroon);
+
+            transition:
+                transform 0.2s ease;
+        }
+
+
+        .collapsible-section.open
+        .collapsible-arrow {
+
+            transform: rotate(180deg);
+        }
+
+
+        .collapsible-content {
+
+            display: none;
+
+            padding: 5px 12px 4px;
+
+            border-top: 1px solid #eeeae6;
+        }
+
+
+        .collapsible-section.open
+        .collapsible-content {
+
+            display: block;
+        }
+
+
+        /* =========================================================
+           PREDICT BUTTON
+        ========================================================= */
+
+        .predict-btn {
+
+            width: 100%;
+
+            height: 42px;
+
+            margin-top: 5px;
+
+            background: var(--maroon) !important;
+
+            border: 1px solid var(--maroon) !important;
+
+            border-radius: 7px;
+
+            color: white !important;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            transition: all 0.15s ease;
+        }
+
+
+        .predict-btn:hover {
+
+            background: var(--maroon-dark) !important;
+
+            border-color: var(--maroon-dark) !important;
+
+            box-shadow:
+                0 4px 10px rgba(67, 11, 25, 0.16);
+
+            transform: translateY(-1px);
+        }
+
+
+        .predict-btn:disabled {
+
+            opacity: 0.7;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+
+        /* =========================================================
+           BULK CARD
+        ========================================================= */
+
+        .bulk-card {
+
+            padding: 20px;
+
+            position: sticky;
+
+            top: 18px;
+        }
+
+
+        .bulk-card .section-title {
+
+            font-size: 16px;
+        }
+
+
+        /* =========================================================
+           BULK UPLOAD
+        ========================================================= */
+
+        .bulk-upload-area {
+
+            border: 1px dashed #c8bfc0;
+
+            border-radius: 8px;
+
+            padding: 25px 16px;
+
+            text-align: center;
+
+            background: var(--surface-soft);
+
+            margin-bottom: 14px;
+
+            transition: all 0.15s ease;
+        }
+
+
+        .bulk-upload-area:hover {
+
+            border-color: var(--maroon-light);
+
+            background: #f9f6f3;
+        }
+
+
+        .bulk-upload-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            margin: 0 auto 10px;
+
+            border-radius: 9px;
+
+            background: #f1e5e8;
+
+            color: var(--maroon);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 19px;
+        }
+
+
+        .bulk-upload-text {
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            color: var(--text);
+
+            margin-bottom: 4px;
+        }
+
+
+        .bulk-upload-help {
+
+            font-size: 9.5px;
+
+            line-height: 1.5;
+
+            color: var(--text-muted);
+
+            margin-bottom: 14px;
+        }
+
+
+        .file-input {
+
+            height: auto !important;
+
+            min-height: 38px;
+
+            background: white !important;
+
+            border: 1px solid var(--border-dark) !important;
+
+            padding: 5px !important;
+
+            font-size: 10px !important;
+
+            text-align: left;
+        }
+
+
+        /* =========================================================
+           BULK BUTTON
+        ========================================================= */
+
+        .bulk-button {
+
+            width: 100%;
+
+            height: 42px;
+
+            background: var(--maroon) !important;
+
+            border: 1px solid var(--maroon) !important;
+
+            border-radius: 7px;
+
+            color: white !important;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            transition: all 0.15s ease;
+        }
+
+
+        .bulk-button:hover {
+
+            background: var(--maroon-dark) !important;
+
+            border-color: var(--maroon-dark) !important;
+
+            box-shadow:
+                0 4px 10px rgba(67, 11, 25, 0.16);
+
+            transform: translateY(-1px);
+        }
+
+
+        .bulk-button:disabled {
+
+            opacity: 0.7;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+
+        /* =========================================================
+           BULK STATUS / ERROR
+        ========================================================= */
+
+        .bulk-status,
+        .error-message {
+
+            margin-top: 12px;
+
+            margin-bottom: 0;
+
+            padding: 9px 11px;
+
+            border-radius: 6px;
+
+            font-size: 10px;
+
+            line-height: 1.4;
+        }
+
+
+        .bulk-status.alert-success {
+
+            background: var(--low-bg);
+
+            border-color: #cce7d8;
+
+            color: var(--low-text);
+        }
+
+
+        .bulk-status.alert-secondary {
+
+            background: var(--surface-soft);
+
+            border-color: var(--border);
+
+            color: var(--text-muted);
+        }
+
+
+        .error-message {
+
+            background: var(--high-bg);
+
+            border-color: #edc7cb;
+
+            color: var(--high-text);
+        }
+
+
+        /* =========================================================
+           BULK SUMMARY
+        ========================================================= */
+
+        .bulk-summary {
+
+            margin-top: 16px;
+
+            padding-top: 15px;
+
+            border-top: 1px solid #eeeae6;
+        }
+
+
+        .summary-box {
+
+            text-align: center;
+
+            padding: 10px 4px;
+
+            border-radius: 7px;
+
+            background: var(--surface-soft);
+
+            border: 1px solid var(--border);
+        }
+
+
+        .summary-box small {
+
+            display: block;
+
+            font-size: 8.5px;
+
+            color: var(--text-muted);
+
+            margin-bottom: 3px;
+        }
+
+
+        .summary-box strong {
+
+            display: block;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            color: var(--text);
+        }
+
+
+        #lowRiskCount {
+
+            color: var(--low-text);
+        }
+
+
+        #mediumRiskCount {
+
+            color: var(--medium-text);
+        }
+
+
+        #highRiskCount {
+
+            color: var(--high-text);
+        }
+
+
+        /* =========================================================
+           BULK RESULTS
+        ========================================================= */
+
+        .bulk-results {
+
+            margin-top: 16px;
+
+            padding-top: 15px;
+
+            border-top: 1px solid #eeeae6;
+        }
+
+
+        .table-container {
+
+            max-height: 330px;
+
+            overflow-y: auto;
+
+            border: 1px solid var(--border);
+
+            border-radius: 7px;
+        }
+
+
+        .bulk-results table {
+
+            font-size: 10px;
+
+            margin-bottom: 0;
+        }
+
+
+        .bulk-results th {
+
+            background: var(--surface-soft);
+
+            color: #534b4c;
+
+            font-size: 9px;
+
+            font-weight: 600;
+
+            padding: 9px;
+
+            border-bottom: 1px solid var(--border);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1;
+
+            white-space: nowrap;
+        }
+
+
+        .bulk-results td {
+
+            padding: 8px 9px;
+
+            vertical-align: middle;
+
+            border-color: #eeeae6;
+
+            white-space: nowrap;
+        }
+
+
+        /* =========================================================
+           RISK BADGES
+        ========================================================= */
+
+        .risk-badge {
+
+            display: inline-block;
+
+            padding: 4px 8px;
+
+            border-radius: 999px;
+
+            font-size: 8.5px;
+
+            line-height: 1;
+
+            font-weight: 700;
+
+            letter-spacing: 0.1px;
+        }
+
+
+        .risk-low {
+
+            background: var(--low-bg);
+
+            color: var(--low-text);
+        }
+
+
+        .risk-medium {
+
+            background: var(--medium-bg);
+
+            color: var(--medium-text);
+        }
+
+
+        .risk-high {
+
+            background: var(--high-bg);
+
+            color: var(--high-text);
+        }
+
+
+        /* =========================================================
+           DOWNLOAD BUTTON
+        ========================================================= */
+
+        .download-btn {
+
+            width: 100%;
+
+            margin-top: 12px;
+
+            height: 38px;
+
+            border-radius: 7px;
+
+            background: #f4f2ee !important;
+
+            border: 1px solid var(--border-dark) !important;
+
+            color: var(--maroon) !important;
+
+            font-size: 10.5px;
+
+            font-weight: 600;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .download-btn:hover {
+
+            background: #eee9e5 !important;
+
+            color: var(--maroon-dark) !important;
+        }
+
+
+        /* =========================================================
+           INDIVIDUAL RESULT
+        ========================================================= */
+
+        .result-card {
+
+            margin-top: 16px;
+
+            padding: 18px 20px;
+        }
+
+
+        .result-heading {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 13px;
+        }
+
+
+        .result-title {
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            margin: 0;
+
+            color: var(--text);
+        }
+
+
+        .result-subtitle {
+
+            font-size: 9.5px;
+
+            color: var(--text-muted);
+
+            margin: 2px 0 0;
+        }
+
+
+        .result-box {
+
+            text-align: center;
+
+            padding: 12px 8px;
+
+            border-radius: 7px;
+
+            background: var(--surface-soft);
+
+            border: 1px solid var(--border);
+        }
+
+
+        .result-box small {
+
+            display: block;
+
+            font-size: 9px;
+
+            color: var(--text-muted);
+
+            margin-bottom: 4px;
+        }
+
+
+        .result-box strong {
+
+            display: block;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            margin-top: 2px;
+
+            color: var(--text);
+        }
+
+
+        /* =========================================================
+           RESULT RISK COLORS
+        ========================================================= */
+
+        #riskLevel.risk-low-text {
+
+            color: var(--low-text);
+        }
+
+
+        #riskLevel.risk-medium-text {
+
+            color: var(--medium-text);
+        }
+
+
+        #riskLevel.risk-high-text {
+
+            color: var(--high-text);
+        }
+
+
+        /* =========================================================
+           PROGRESS BAR
+        ========================================================= */
+
+        .progress {
+
+            height: 7px;
+
+            margin-top: 13px;
+
+            background: #eeeae6;
+
+            border-radius: 999px;
+
+            overflow: hidden;
+        }
+
+
+        .progress-bar {
+
+            background: var(--maroon);
+
+            border-radius: 999px;
+
+            transition: width 0.5s ease;
+        }
+
+
+        /* =========================================================
+           LOADING
+        ========================================================= */
+
+        .loading-spinner {
+
+            display: none;
+
+            margin-left: 5px;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .prediction-layout {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .bulk-card {
+
+                position: static;
+            }
+
+
+            .main-container {
+
+                max-width: 760px;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .navbar .container {
+
+                padding-left: 14px;
+
+                padding-right: 14px;
+            }
+
+
+            .nav-links {
+
+                gap: 4px;
+            }
+
+
+            .nav-btn {
+
+                min-height: 33px;
+
+                padding: 6px 8px;
+
+                font-size: 9px;
+            }
+
+
+            .nav-btn i {
+
+                font-size: 12px;
+            }
+
+
+            .navbar-brand {
+
+                font-size: 12px;
+            }
+
+
+            .brand-icon {
+
+                width: 26px;
+
+                height: 26px;
+
+                margin-right: 5px;
+            }
+
+        }
+
+
+        @media (max-width: 576px) {
+
+            .main-container {
+
+                margin: 15px auto 30px;
+
+                padding: 0 12px;
+            }
+
+
+            .header-card {
+
+                padding: 17px;
+            }
+
+
+            .header-content {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .header-label {
+
+                display: none;
+            }
+
+
+            .header-card h1 {
+
+                font-size: 20px;
+            }
+
+
+            .form-card,
+            .bulk-card,
+            .result-card {
+
+                padding: 15px;
+            }
+
+
+            .form-group {
+
+                margin-bottom: 11px;
+            }
+
+
+            .summary-box {
+
+                padding: 9px 2px;
+            }
+
+
+            .summary-box strong {
+
+                font-size: 14px;
+            }
+
+
+            .collapsible-header {
+
+                padding: 10px;
+            }
+
+
+            .collapsible-description {
+
+                max-width: 220px;
+            }
+
+        }
+
+
+        /* =========================================================
+           VERY SMALL SCREEN NAVIGATION
+        ========================================================= */
+
+        @media (max-width: 480px) {
+
+            .navbar .container {
+
+                gap: 6px;
+            }
+
+
+            .navbar-brand span:last-child {
+
+                display: none;
+            }
+
+
+            .nav-btn {
+
+                width: 34px;
+
+                height: 34px;
+
+                padding: 0;
+
+                border-radius: 7px;
+            }
+
+
+            .nav-btn span {
+
+                display: none;
+            }
+
+
+            .nav-btn i {
+
+                font-size: 14px;
+
+                margin: 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav class="navbar navbar-dark">
+
+    <div class="container">
+
+
+        <!-- =================================================
+             BRAND
+        ================================================== -->
+
+        <a
+            href="/"
+            class="navbar-brand"
+        >
+
+            <span class="brand-icon">
+
+                <i class="bi bi-shield-check"></i>
+
+            </span>
+
+            <span>
+                StudentGuard AI
+            </span>
+
+        </a>
+
+
+
+        <!-- =================================================
+             NAVIGATION
+        ================================================== -->
+
+        <div class="nav-links">
+
+    <a href="/" class="nav-btn active">
+        <i class="bi bi-plus-circle"></i>
+        <span>New Prediction</span>
+    </a>
+
+    <a href="/dashboard" class="nav-btn">
+        <i class="bi bi-grid-1x2"></i>
+        <span>Dashboard</span>
+    </a>
+
+    <a href="/prediction-history" class="nav-btn">
+        <i class="bi bi-clock-history"></i>
+        <span>Prediction History</span>
+    </a>
+
+    <a href="/settings" class="nav-btn">
+        <i class="bi bi-gear"></i>
+        <span>Settings</span>
+    </a>
+
+    <a href="/about" class="nav-btn">
+        <i class="bi bi-info-circle"></i>
+        <span>About</span>
+    </a>
+
+</div>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<div class="main-container">
+
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <div class="header-card">
+
+        <div class="header-content">
+
+
+            <div>
+
+                <h1>
+                    Student Dropout Risk Prediction
+                </h1>
+
+                <p>
+                    Assess student dropout risk using academic,
+                    engagement, financial and support factors.
+                </p>
+
+            </div>
+
+
+            <div class="header-label">
+
+                <span class="status-dot"></span>
+
+                AI Risk Assessment
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         MANUAL + BULK SIDE BY SIDE
+    ====================================================== -->
+
+    <div class="prediction-layout">
+
+
+        <!-- =================================================
+             MANUAL PREDICTION
+        ================================================== -->
+
+        <div class="form-card">
+
+
+            <div class="card-heading">
+
+                <div class="card-heading-row">
+
+
+                    <div>
+
+                        <div class="section-title">
+
+                            Student Information
+
+                        </div>
+
+                        <div class="section-description">
+
+                            Enter the student's details to estimate
+                            individual dropout risk.
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="section-number">
+
+                        01
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FORM
+            ================================================== -->
+
+            <form id="predictionForm">
+
+
+                <!-- BASIC INFORMATION -->
+
+                <div class="row">
+
+
+                    <!-- AGE -->
+
+                    <div class="col-md-4 form-group">
+
+                        <label class="form-label">
+                            Age
+                        </label>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="Age"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- GENDER -->
+
+                    <div class="col-md-4 form-group">
+
+                        <label class="form-label">
+                            Gender
+                        </label>
+
+                        <select
+                            class="form-select"
+                            id="Gender"
+                            required
+                        >
+
+                            <option value="Male">
+                                Male
+                            </option>
+
+                            <option value="Female">
+                                Female
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- YEAR -->
+
+                    <div class="col-md-4 form-group">
+
+                        <label class="form-label">
+                            Year of Study
+                        </label>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="Year_of_Study"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- ATTENDANCE -->
+
+                    <div class="col-md-4 form-group">
+
+                        <label class="form-label">
+                            Attendance Percentage
+                        </label>
+
+                        <input
+                            type="number"
+                            step="0.01"
+                            class="form-control"
+                            id="Attendance_Percentage"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- GRADE -->
+
+                    <div class="col-md-4 form-group">
+
+                        <label class="form-label">
+                            Average Grade
+                        </label>
+
+                        <input
+                            type="number"
+                            step="0.01"
+                            class="form-control"
+                            id="Average_Grade"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- FAILED SUBJECTS -->
+
+                    <div class="col-md-4 form-group">
+
+                        <label class="form-label">
+                            Failed Subjects
+                        </label>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="Failed_Subjects"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     ACADEMIC & ENGAGEMENT
+                ================================================== -->
+
+                <div class="collapsible-section">
+
+                    <button
+                        type="button"
+                        class="collapsible-header"
+                        onclick="toggleSection(this)"
+                    >
+
+                        <div>
+
+                            <div class="collapsible-title">
+
+                                <span class="collapsible-number">
+                                    02
+                                </span>
+
+                                <span class="collapsible-text">
+                                    Academic & Engagement Details
+                                </span>
+
+                            </div>
+
+                            <div class="collapsible-description">
+                                Study activity, assignments and online learning
+                            </div>
+
+                        </div>
+
+
+                        <span class="collapsible-arrow">
+                            ▼
+                        </span>
+
+                    </button>
+
+
+
+                    <div class="collapsible-content">
+
+                        <div class="row">
+
+
+                            <div class="col-md-4 form-group">
+
+                                <label class="form-label">
+                                    Assignments Completed %
+                                </label>
+
+                                <input
+                                    type="number"
+                                    step="0.01"
+                                    class="form-control"
+                                    id="Assignments_Completed_Percentage"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <div class="col-md-4 form-group">
+
+                                <label class="form-label">
+                                    Engagement Score
+                                </label>
+
+                                <input
+                                    type="number"
+                                    step="0.01"
+                                    class="form-control"
+                                    id="Engagement_Score"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <div class="col-md-4 form-group">
+
+                                <label class="form-label">
+                                    Study Hours / Day
+                                </label>
+
+                                <input
+                                    type="number"
+                                    step="0.01"
+                                    class="form-control"
+                                    id="Study_Hours_Per_Day"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <div class="col-md-4 form-group">
+
+                                <label class="form-label">
+                                    Online Learning Hours / Week
+                                </label>
+
+                                <input
+                                    type="number"
+                                    step="0.01"
+                                    class="form-control"
+                                    id="Online_Learning_Hours_Per_Week"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     FINANCIAL & PERSONAL
+                ================================================== -->
+
+                <div class="collapsible-section">
+
+                    <button
+                        type="button"
+                        class="collapsible-header"
+                        onclick="toggleSection(this)"
+                    >
+
+                        <div>
+
+                            <div class="collapsible-title">
+
+                                <span class="collapsible-number">
+                                    03
+                                </span>
+
+                                <span class="collapsible-text">
+                                    Financial & Personal Details
+                                </span>
+
+                            </div>
+
+                            <div class="collapsible-description">
+                                Income, scholarship, employment and financial stress
+                            </div>
+
+                        </div>
+
+
+                        <span class="collapsible-arrow">
+                            ▼
+                        </span>
+
+                    </button>
+
+
+
+                    <div class="collapsible-content">
+
+                        <div class="row">
+
+
+                            <div class="col-md-4 form-group">
+
+                                <label class="form-label">
+                                    Family Income (₹)
+                                </label>
+
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="Family_Income_INR"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <div class="col-md-4 form-group">
+
+                                <label class="form-label">
+                                    Scholarship
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    id="Scholarship"
+                                >
+
+                                    <option value="Yes">
+                                        Yes
+                                    </option>
+
+                                    <option value="No">
+                                        No
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+
+                            <div class="col-md-4 form-group">
+
+                                <label class="form-label">
+                                    Part-Time Job
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    id="Part_Time_Job"
+                                >
+
+                                    <option value="Yes">
+                                        Yes
+                                    </option>
+
+                                    <option value="No">
+                                        No
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+
+                            <div class="col-md-4 form-group">
+
+                                <label class="form-label">
+                                    Financial Stress Score
+                                </label>
+
+                                <input
+                                    type="number"
+                                    step="0.01"
+                                    class="form-control"
+                                    id="Financial_Stress_Score"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <div class="col-md-4 form-group">
+
+                                <label class="form-label">
+                                    Distance From College (KM)
+                                </label>
+
+                                <input
+                                    type="number"
+                                    step="0.01"
+                                    class="form-control"
+                                    id="Distance_From_College_KM"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     SUPPORT & OTHER INFORMATION
+                ================================================== -->
+
+                <div class="collapsible-section">
+
+                    <button
+                        type="button"
+                        class="collapsible-header"
+                        onclick="toggleSection(this)"
+                    >
+
+                        <div>
+
+                            <div class="collapsible-title">
+
+                                <span class="collapsible-number">
+                                    04
+                                </span>
+
+                                <span class="collapsible-text">
+                                    Support & Other Information
+                                </span>
+
+                            </div>
+
+                            <div class="collapsible-description">
+                                Internet access, family support and student activities
+                            </div>
+
+                        </div>
+
+
+                        <span class="collapsible-arrow">
+                            ▼
+                        </span>
+
+                    </button>
+
+
+
+                    <div class="collapsible-content">
+
+                        <div class="row">
+
+
+                            <div class="col-md-4 form-group">
+
+                                <label class="form-label">
+                                    Internet Access
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    id="Internet_Access"
+                                >
+
+                                    <option value="Yes">
+                                        Yes
+                                    </option>
+
+                                    <option value="No">
+                                        No
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+
+                            <div class="col-md-4 form-group">
+
+                                <label class="form-label">
+                                    Parental Support
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    id="Parental_Support"
+                                >
+
+                                    <option value="High">
+                                        High
+                                    </option>
+
+                                    <option value="Medium">
+                                        Medium
+                                    </option>
+
+                                    <option value="Low">
+                                        Low
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+
+                            <div class="col-md-4 form-group">
+
+                                <label class="form-label">
+                                    Extracurricular Activities
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    id="Extracurricular_Activities"
+                                >
+
+                                    <option value="Yes">
+                                        Yes
+                                    </option>
+
+                                    <option value="No">
+                                        No
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+
+                            <div class="col-md-4 form-group">
+
+                                <label class="form-label">
+                                    Disciplinary Issues
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    id="Disciplinary_Issues"
+                                >
+
+                                    <option value="No">
+                                        No
+                                    </option>
+
+                                    <option value="Yes">
+                                        Yes
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PREDICT BUTTON
+                ================================================== -->
+
+                <button
+                    type="submit"
+                    class="btn btn-primary predict-btn"
+                    id="predictButton"
+                >
+
+                    <i class="bi bi-shield-check me-1"></i>
+
+                    Predict Dropout Risk
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+
+        <!-- =================================================
+             BULK PREDICTION
+        ================================================== -->
+
+        <div class="bulk-card">
+
+
+            <div class="card-heading">
+
+                <div class="card-heading-row">
+
+
+                    <div>
+
+                        <div class="section-title">
+                            Bulk Prediction
+                        </div>
+
+                        <div class="section-description">
+                            Upload multiple student records
+                            and predict them at once.
+                        </div>
+
+                    </div>
+
+
+                    <div class="section-number">
+                        02
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- UPLOAD -->
+
+            <div class="bulk-upload-area">
+
+                <div class="bulk-upload-icon">
+
+                    <i class="bi bi-cloud-arrow-up"></i>
+
+                </div>
+
+
+                <div class="bulk-upload-text">
+                    Upload Student CSV
+                </div>
+
+
+                <div class="bulk-upload-help">
+
+                    Select a CSV containing the student
+                    features used by the model.
+
+                </div>
+
+
+                <input
+                    type="file"
+                    id="csvFile"
+                    class="form-control file-input"
+                    accept=".csv"
+                >
+
+            </div>
+
+
+
+            <!-- BULK BUTTON -->
+
+            <button
+                type="button"
+                class="btn btn-primary bulk-button"
+                id="bulkPredictButton"
+            >
+
+                <span id="bulkButtonText">
+
+                    <i class="bi bi-lightning-charge me-1"></i>
+
+                    Predict All Students
+
+                </span>
+
+
+                <span
+                    id="bulkSpinner"
+                    class="spinner-border spinner-border-sm loading-spinner"
+                    role="status"
+                    aria-hidden="true"
+                ></span>
+
+            </button>
+
+
+
+            <!-- STATUS -->
+
+            <div
+                id="bulkStatus"
+                class="bulk-status alert alert-info"
+                style="display:none;"
+            ></div>
+
+
+
+            <!-- ERROR -->
+
+            <div
+                id="bulkError"
+                class="error-message alert alert-danger"
+                style="display:none;"
+            ></div>
+
+
+
+            <!-- SUMMARY -->
+
+            <div
+                id="bulkSummary"
+                class="bulk-summary"
+                style="display:none;"
+            >
+
+                <div class="row g-2">
+
+
+                    <div class="col-3">
+
+                        <div class="summary-box">
+
+                            <small>
+                                Total
+                            </small>
+
+                            <strong id="totalStudents">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-3">
+
+                        <div class="summary-box">
+
+                            <small>
+                                Low
+                            </small>
+
+                            <strong id="lowRiskCount">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-3">
+
+                        <div class="summary-box">
+
+                            <small>
+                                Medium
+                            </small>
+
+                            <strong id="mediumRiskCount">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-3">
+
+                        <div class="summary-box">
+
+                            <small>
+                                High
+                            </small>
+
+                            <strong id="highRiskCount">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- RESULTS -->
+
+            <div
+                id="bulkResults"
+                class="bulk-results"
+                style="display:none;"
+            >
+
+                <div class="section-title mb-2">
+                    Prediction Results
+                </div>
+
+
+                <div class="table-container">
+
+                    <table class="table table-sm table-hover">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>#</th>
+
+                                <th>Probability</th>
+
+                                <th>Risk</th>
+
+                                <th>Prediction</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="bulkResultsBody">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+
+                <!-- DOWNLOAD -->
+
+                <a
+                    id="downloadButton"
+                    href="/bulk_predictions.csv"
+                    class="btn download-btn"
+                    download
+                >
+
+                    <i class="bi bi-download me-1"></i>
+
+                    Download Results CSV
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         INDIVIDUAL RESULT
+    ====================================================== -->
+
+    <div
+        class="result-card"
+        id="resultCard"
+        style="display:none;"
+    >
+
+
+        <div class="result-heading">
+
+            <div>
+
+                <div class="result-title">
+                    Prediction Result
+                </div>
+
+                <div class="result-subtitle">
+                    Estimated dropout risk for the entered student.
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="row g-2">
+
+
+            <!-- RISK -->
+
+            <div class="col-md-4 col-4">
+
+                <div class="result-box">
+
+                    <small>
+                        Risk Level
+                    </small>
+
+                    <strong id="riskLevel">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PROBABILITY -->
+
+            <div class="col-md-4 col-4">
+
+                <div class="result-box">
+
+                    <small>
+                        Probability
+                    </small>
+
+                    <strong id="dropoutProbability">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PREDICTION -->
+
+            <div class="col-md-4 col-4">
+
+                <div class="result-box">
+
+                    <small>
+                        Prediction
+                    </small>
+
+                    <strong id="predictionResult">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PROGRESS -->
+
+        <div class="progress">
+
+            <div
+                id="probabilityBar"
+                class="progress-bar"
+                role="progressbar"
+                style="width:0%"
+            ></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+    /* =====================================================
+       COLLAPSIBLE FORM SECTIONS
+    ===================================================== */
+
+    function toggleSection(button) {
+
+        const section =
+            button.closest(
+                ".collapsible-section"
+            );
+
+        section.classList.toggle(
+            "open"
+        );
+
+    }
+
+
+
+    /* =====================================================
+       INDIVIDUAL PREDICTION
+    ===================================================== */
+
+    document
+        .getElementById("predictionForm")
+        .addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                const button =
+                    document.getElementById(
+                        "predictButton"
+                    );
+
+
+                button.disabled = true;
+
+
+                button.innerHTML = `
+                    <span
+                        class="spinner-border spinner-border-sm me-1"
+                    ></span>
+                    Predicting...
+                `;
+
+
+
+                const studentData = {
+
+                    Age:
+                        Number(
+                            document.getElementById(
+                                "Age"
+                            ).value
+                        ),
+
+                    Gender:
+                        document.getElementById(
+                            "Gender"
+                        ).value,
+
+                    Year_of_Study:
+                        Number(
+                            document.getElementById(
+                                "Year_of_Study"
+                            ).value
+                        ),
+
+                    Attendance_Percentage:
+                        Number(
+                            document.getElementById(
+                                "Attendance_Percentage"
+                            ).value
+                        ),
+
+                    Average_Grade:
+                        Number(
+                            document.getElementById(
+                                "Average_Grade"
+                            ).value
+                        ),
+
+                    Failed_Subjects:
+                        Number(
+                            document.getElementById(
+                                "Failed_Subjects"
+                            ).value
+                        ),
+
+                    Assignments_Completed_Percentage:
+                        Number(
+                            document.getElementById(
+                                "Assignments_Completed_Percentage"
+                            ).value
+                        ),
+
+                    Engagement_Score:
+                        Number(
+                            document.getElementById(
+                                "Engagement_Score"
+                            ).value
+                        ),
+
+                    Study_Hours_Per_Day:
+                        Number(
+                            document.getElementById(
+                                "Study_Hours_Per_Day"
+                            ).value
+                        ),
+
+                    Online_Learning_Hours_Per_Week:
+                        Number(
+                            document.getElementById(
+                                "Online_Learning_Hours_Per_Week"
+                            ).value
+                        ),
+
+                    Family_Income_INR:
+                        Number(
+                            document.getElementById(
+                                "Family_Income_INR"
+                            ).value
+                        ),
+
+                    Scholarship:
+                        document.getElementById(
+                            "Scholarship"
+                        ).value,
+
+                    Part_Time_Job:
+                        document.getElementById(
+                            "Part_Time_Job"
+                        ).value,
+
+                    Financial_Stress_Score:
+                        Number(
+                            document.getElementById(
+                                "Financial_Stress_Score"
+                            ).value
+                        ),
+
+                    Distance_From_College_KM:
+                        Number(
+                            document.getElementById(
+                                "Distance_From_College_KM"
+                            ).value
+                        ),
+
+                    Internet_Access:
+                        document.getElementById(
+                            "Internet_Access"
+                        ).value,
+
+                    Parental_Support:
+                        document.getElementById(
+                            "Parental_Support"
+                        ).value,
+
+                    Extracurricular_Activities:
+                        document.getElementById(
+                            "Extracurricular_Activities"
+                        ).value,
+
+                    Disciplinary_Issues:
+                        document.getElementById(
+                            "Disciplinary_Issues"
+                        ).value
+
+                };
+
+
+
+                try {
+
+
+                    const response =
+                        await fetch(
+                            "/predict",
+                            {
+
+                                method: "POST",
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json"
+
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        studentData
+                                    )
+
+                            }
+                        );
+
+
+
+                    const result =
+                        await response.json();
+
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            result.detail ||
+                            "Prediction failed."
+                        );
+
+                    }
+
+
+
+                    /* SHOW RESULT */
+
+                    document.getElementById(
+                        "resultCard"
+                    ).style.display =
+                        "block";
+
+
+
+                    /* RISK LEVEL */
+
+                    const riskElement =
+                        document.getElementById(
+                            "riskLevel"
+                        );
+
+
+                    riskElement.innerText =
+                        result.risk_level;
+
+
+                    riskElement.classList.remove(
+                        "risk-low-text",
+                        "risk-medium-text",
+                        "risk-high-text"
+                    );
+
+
+
+                    if (
+                        result.risk_level ===
+                        "LOW"
+                    ) {
+
+                        riskElement.classList.add(
+                            "risk-low-text"
+                        );
+
+                    }
+
+
+                    else if (
+                        result.risk_level ===
+                        "MEDIUM"
+                    ) {
+
+                        riskElement.classList.add(
+                            "risk-medium-text"
+                        );
+
+                    }
+
+
+                    else if (
+                        result.risk_level ===
+                        "HIGH"
+                    ) {
+
+                        riskElement.classList.add(
+                            "risk-high-text"
+                        );
+
+                    }
+
+
+
+                    /* PROBABILITY */
+
+                    document.getElementById(
+                        "dropoutProbability"
+                    ).innerText =
+                        result.dropout_probability +
+                        "%";
+
+
+
+                    /* PREDICTION */
+
+                    document.getElementById(
+                        "predictionResult"
+                    ).innerText =
+                        result.prediction;
+
+
+
+                    /* PROGRESS */
+
+                    document.getElementById(
+                        "probabilityBar"
+                    ).style.width =
+                        result.dropout_probability +
+                        "%";
+
+
+
+                    /* SCROLL TO RESULT */
+
+                    document.getElementById(
+                        "resultCard"
+                    ).scrollIntoView({
+
+                        behavior: "smooth",
+
+                        block: "nearest"
+
+                    });
+
+                }
+
+
+                catch (error) {
+
+                    alert(
+                        "Prediction failed: " +
+                        error.message
+                    );
+
+                }
+
+
+                finally {
+
+                    button.disabled = false;
+
+                    button.innerHTML = `
+                        <i class="bi bi-shield-check me-1"></i>
+                        Predict Dropout Risk
+                    `;
+
+                }
+
+            }
+        );
+
+
+
+    /* =====================================================
+       BULK PREDICTION
+    ===================================================== */
+
+    document
+        .getElementById("bulkPredictButton")
+        .addEventListener(
+            "click",
+            async function() {
+
+
+                const fileInput =
+                    document.getElementById(
+                        "csvFile"
+                    );
+
+
+                const file =
+                    fileInput.files[0];
+
+
+
+                /* NO FILE */
+
+                if (!file) {
+
+                    showBulkError(
+                        "Please select a CSV file first."
+                    );
+
+                    return;
+
+                }
+
+
+
+                /* FILE CHECK */
+
+                if (
+                    !file.name
+                        .toLowerCase()
+                        .endsWith(".csv")
+                ) {
+
+                    showBulkError(
+                        "Please upload a CSV file."
+                    );
+
+                    return;
+
+                }
+
+
+
+                /* UI */
+
+                const button =
+                    document.getElementById(
+                        "bulkPredictButton"
+                    );
+
+
+                const buttonText =
+                    document.getElementById(
+                        "bulkButtonText"
+                    );
+
+
+                const spinner =
+                    document.getElementById(
+                        "bulkSpinner"
+                    );
+
+
+                button.disabled = true;
+
+
+                buttonText.innerText =
+                    "Processing...";
+
+
+                spinner.style.display =
+                    "inline-block";
+
+
+                hideBulkError();
+
+
+
+                const formData =
+                    new FormData();
+
+
+                formData.append(
+                    "file",
+                    file
+                );
+
+
+
+                try {
+
+
+                    const response =
+                        await fetch(
+                            "/bulk-predict",
+                            {
+
+                                method: "POST",
+
+                                body:
+                                    formData
+
+                            }
+                        );
+
+
+
+                    const result =
+                        await response.json();
+
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            result.detail ||
+                            "Bulk prediction failed."
+                        );
+
+                    }
+
+
+
+                    /* SUCCESS */
+
+                    const status =
+                        document.getElementById(
+                            "bulkStatus"
+                        );
+
+
+                    status.style.display =
+                        "block";
+
+
+                    status.className =
+                        "bulk-status alert alert-success";
+
+
+                    status.innerText =
+                        result.total_students +
+                        " students processed successfully.";
+
+
+
+                    /* COUNT */
+
+                    let low = 0;
+
+                    let medium = 0;
+
+                    let high = 0;
+
+
+
+                    result.results.forEach(
+                        function(student) {
+
+
+                            if (
+                                student.Risk_Level ===
+                                "LOW"
+                            ) {
+
+                                low++;
+
+                            }
+
+
+                            else if (
+                                student.Risk_Level ===
+                                "MEDIUM"
+                            ) {
+
+                                medium++;
+
+                            }
+
+
+                            else if (
+                                student.Risk_Level ===
+                                "HIGH"
+                            ) {
+
+                                high++;
+
+                            }
+
+                        }
+                    );
+
+
+
+                    /* SUMMARY */
+
+                    document.getElementById(
+                        "totalStudents"
+                    ).innerText =
+                        result.total_students;
+
+
+                    document.getElementById(
+                        "lowRiskCount"
+                    ).innerText =
+                        low;
+
+
+                    document.getElementById(
+                        "mediumRiskCount"
+                    ).innerText =
+                        medium;
+
+
+                    document.getElementById(
+                        "highRiskCount"
+                    ).innerText =
+                        high;
+
+
+                    document.getElementById(
+                        "bulkSummary"
+                    ).style.display =
+                        "block";
+
+
+
+                    /* RESULTS TABLE */
+
+                    const tableBody =
+                        document.getElementById(
+                            "bulkResultsBody"
+                        );
+
+
+                    tableBody.innerHTML =
+                        "";
+
+
+
+                    /*
+                        Show first 100 records.
+                        Complete results remain
+                        available in CSV.
+                    */
+
+                    result.results
+                        .slice(0, 100)
+                        .forEach(
+                            function(
+                                student,
+                                index
+                            ) {
+
+
+                                const row =
+                                    document.createElement(
+                                        "tr"
+                                    );
+
+
+                                let riskClass =
+                                    "risk-low";
+
+
+
+                                if (
+                                    student.Risk_Level ===
+                                    "MEDIUM"
+                                ) {
+
+                                    riskClass =
+                                        "risk-medium";
+
+                                }
+
+
+                                else if (
+                                    student.Risk_Level ===
+                                    "HIGH"
+                                ) {
+
+                                    riskClass =
+                                        "risk-high";
+
+                                }
+
+
+
+                                row.innerHTML = `
+
+                                    <td>
+                                        ${index + 1}
+                                    </td>
+
+                                    <td>
+                                        ${student.Dropout_Probability}%
+                                    </td>
+
+                                    <td>
+
+                                        <span
+                                            class="risk-badge ${riskClass}"
+                                        >
+
+                                            ${student.Risk_Level}
+
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+                                        ${student.Prediction}
+                                    </td>
+
+                                `;
+
+
+
+                                tableBody.appendChild(
+                                    row
+                                );
+
+                            }
+                        );
+
+
+
+                    /* SHOW RESULTS */
+
+                    document.getElementById(
+                        "bulkResults"
+                    ).style.display =
+                        "block";
+
+
+
+                    /* DOWNLOAD */
+
+                    document.getElementById(
+                        "downloadButton"
+                    ).href =
+                        "/bulk_predictions.csv?time=" +
+                        new Date().getTime();
+
+                }
+
+
+                catch (error) {
+
+                    showBulkError(
+                        error.message
+                    );
+
+                }
+
+
+                finally {
+
+                    button.disabled =
+                        false;
+
+
+                    buttonText.innerHTML = `
+                        <i class="bi bi-lightning-charge me-1"></i>
+                        Predict All Students
+                    `;
+
+
+                    spinner.style.display =
+                        "none";
+
+                }
+
+            }
+        );
+
+
+
+    /* =====================================================
+       BULK ERROR
+    ===================================================== */
+
+    function showBulkError(message) {
+
+        const errorBox =
+            document.getElementById(
+                "bulkError"
+            );
+
+
+        errorBox.innerText =
+            message;
+
+
+        errorBox.style.display =
+            "block";
+
+    }
+
+
+
+    function hideBulkError() {
+
+        document.getElementById(
+            "bulkError"
+        ).style.display =
+            "none";
+
+    }
+
+
+
+    /* =====================================================
+       FILE SELECTION
+    ===================================================== */
+
+    document
+        .getElementById("csvFile")
+        .addEventListener(
+            "change",
+            function() {
+
+
+                hideBulkError();
+
+
+                const file =
+                    this.files[0];
+
+
+                if (file) {
+
+
+                    const status =
+                        document.getElementById(
+                            "bulkStatus"
+                        );
+
+
+                    status.style.display =
+                        "block";
+
+
+                    status.className =
+                        "bulk-status alert alert-secondary";
+
+
+                    status.innerText =
+                        "Selected file: " +
+                        file.name;
+
+                }
+
+            }
+        );
+
+</script>
+
+
+</body>
+
+</html>
