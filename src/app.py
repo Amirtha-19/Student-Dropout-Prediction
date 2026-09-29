@@ -47,14 +47,87 @@ BULK_OUTPUT_FILE = "bulk_predictions.csv"
 
 
 # =====================================================
+# DATABASE INITIALIZATION
+# =====================================================
+
+def create_database():
+
+    connection = sqlite3.connect(
+        DATABASE_NAME
+    )
+
+    cursor = connection.cursor()
+
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS predictions (
+
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+            age INTEGER,
+            gender TEXT,
+            year_of_study INTEGER,
+
+            attendance_percentage REAL,
+            average_grade REAL,
+            failed_subjects INTEGER,
+            assignments_completed_percentage REAL,
+            engagement_score REAL,
+
+            study_hours_per_day REAL,
+            online_learning_hours_per_week REAL,
+
+            family_income_inr REAL,
+
+            scholarship TEXT,
+            part_time_job TEXT,
+
+            financial_stress_score REAL,
+            distance_from_college_km REAL,
+
+            internet_access TEXT,
+            parental_support TEXT,
+            extracurricular_activities TEXT,
+            disciplinary_issues TEXT,
+
+            dropout_probability REAL,
+            risk_level TEXT,
+            prediction TEXT,
+
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+        """
+    )
+
+    connection.commit()
+    connection.close()
+
+    print("Database initialized successfully.")
+
+
+# Create database/table when application starts
+create_database()
+
+
+# =====================================================
 # LOAD MODEL
 # =====================================================
 
 try:
-    model = joblib.load(MODEL_PATH)
+
+    model = joblib.load(
+        MODEL_PATH
+    )
+
     print("Model loaded successfully.")
+
 except Exception as e:
-    print("Error loading model:", e)
+
+    print(
+        "Error loading model:",
+        e
+    )
+
     model = None
 
 
@@ -63,6 +136,7 @@ except Exception as e:
 # =====================================================
 
 REQUIRED_COLUMNS = [
+
     "Age",
     "Gender",
     "Year_of_Study",
@@ -82,6 +156,7 @@ REQUIRED_COLUMNS = [
     "Parental_Support",
     "Extracurricular_Activities",
     "Disciplinary_Issues"
+
 ]
 
 
@@ -94,18 +169,25 @@ class StudentData(BaseModel):
     Age: int
     Gender: str
     Year_of_Study: int
+
     Attendance_Percentage: float
     Average_Grade: float
     Failed_Subjects: int
+
     Assignments_Completed_Percentage: float
     Engagement_Score: float
+
     Study_Hours_Per_Day: float
     Online_Learning_Hours_Per_Week: float
+
     Family_Income_INR: float
+
     Scholarship: str
     Part_Time_Job: str
+
     Financial_Stress_Score: float
     Distance_From_College_KM: float
+
     Internet_Access: str
     Parental_Support: str
     Extracurricular_Activities: str
@@ -119,9 +201,11 @@ class StudentData(BaseModel):
 def sqlite_value(value):
 
     if pd.isna(value):
+
         return None
 
     if hasattr(value, "item"):
+
         return value.item()
 
     return value
@@ -174,14 +258,30 @@ def student_details():
         "frontend/student-details.html"
     )
 
+
+# =====================================================
+# SETTINGS PAGE
+# =====================================================
+
 @app.get("/settings")
 def settings():
-    return FileResponse("frontend/settings.html")
 
+    return FileResponse(
+        "frontend/settings.html"
+    )
+
+
+# =====================================================
+# ABOUT PAGE
+# =====================================================
 
 @app.get("/about")
 def about():
-    return FileResponse("frontend/about.html")
+
+    return FileResponse(
+        "frontend/about.html"
+    )
+
 
 # =====================================================
 # HEALTH CHECK
@@ -201,9 +301,12 @@ def health_check():
 # =====================================================
 
 @app.post("/predict")
-def predict_student(student: StudentData):
+def predict_student(
+    student: StudentData
+):
 
     if model is None:
+
         raise HTTPException(
             status_code=500,
             detail="Model could not be loaded."
@@ -215,7 +318,9 @@ def predict_student(student: StudentData):
             [student.model_dump()]
         )
 
-        prediction = model.predict(input_data)[0]
+        prediction = model.predict(
+            input_data
+        )[0]
 
         probability = model.predict_proba(
             input_data
@@ -228,12 +333,15 @@ def predict_student(student: StudentData):
 
         # Risk level
         if dropout_probability < 30:
+
             risk_level = "LOW"
 
         elif dropout_probability < 60:
+
             risk_level = "MEDIUM"
 
         else:
+
             risk_level = "HIGH"
 
         # Prediction label
@@ -262,54 +370,78 @@ def predict_student(student: StudentData):
         cursor.execute(
             """
             INSERT INTO predictions (
+
                 age,
                 gender,
                 year_of_study,
+
                 attendance_percentage,
                 average_grade,
                 failed_subjects,
+
                 assignments_completed_percentage,
                 engagement_score,
+
                 study_hours_per_day,
                 online_learning_hours_per_week,
+
                 family_income_inr,
+
                 scholarship,
                 part_time_job,
+
                 financial_stress_score,
                 distance_from_college_km,
+
                 internet_access,
                 parental_support,
                 extracurricular_activities,
                 disciplinary_issues,
+
                 dropout_probability,
                 risk_level,
                 prediction
+
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+            VALUES (
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+            )
             """,
             (
+
                 student.Age,
                 student.Gender,
                 student.Year_of_Study,
+
                 student.Attendance_Percentage,
                 student.Average_Grade,
                 student.Failed_Subjects,
+
                 student.Assignments_Completed_Percentage,
                 student.Engagement_Score,
+
                 student.Study_Hours_Per_Day,
                 student.Online_Learning_Hours_Per_Week,
+
                 student.Family_Income_INR,
+
                 student.Scholarship,
                 student.Part_Time_Job,
+
                 student.Financial_Stress_Score,
                 student.Distance_From_College_KM,
+
                 student.Internet_Access,
                 student.Parental_Support,
                 student.Extracurricular_Activities,
                 student.Disciplinary_Issues,
+
                 dropout_probability,
                 risk_level,
                 prediction_label
+
             )
         )
 
@@ -318,9 +450,15 @@ def predict_student(student: StudentData):
         connection.close()
 
         return {
+
             "prediction": prediction_label,
-            "dropout_probability": dropout_probability,
-            "risk_level": risk_level
+
+            "dropout_probability":
+                dropout_probability,
+
+            "risk_level":
+                risk_level
+
         }
 
     except Exception as e:
@@ -355,28 +493,46 @@ async def bulk_predict(
             io.BytesIO(contents)
         )
 
-        # Check required columns
+        # -------------------------------------------------
+        # CHECK REQUIRED COLUMNS
+        # -------------------------------------------------
+
         missing_columns = [
+
             column
+
             for column in REQUIRED_COLUMNS
+
             if column not in df.columns
+
         ]
 
         if missing_columns:
 
             raise HTTPException(
+
                 status_code=400,
+
                 detail={
-                    "message": "Missing required columns.",
-                    "missing_columns": missing_columns
+
+                    "message":
+                        "Missing required columns.",
+
+                    "missing_columns":
+                        missing_columns
+
                 }
+
             )
 
         input_df = df[
             REQUIRED_COLUMNS
         ].copy()
 
-        # Predictions
+        # -------------------------------------------------
+        # PREDICTIONS
+        # -------------------------------------------------
+
         predictions = model.predict(
             input_df
         )
@@ -392,22 +548,37 @@ async def bulk_predict(
         df["Risk_Level"] = df[
             "Dropout_Probability"
         ].apply(
+
             lambda x:
+
                 "LOW"
+
                 if x < 30
+
                 else
+
                 "MEDIUM"
+
                 if x < 60
+
                 else
+
                 "HIGH"
+
         )
 
         df["Prediction"] = [
+
             "At Risk of Dropout"
+
             if prediction == 1
+
             else
+
             "Not Currently Predicted as Dropout"
+
             for prediction in predictions
+
         ]
 
         # =================================================
@@ -425,83 +596,185 @@ async def bulk_predict(
             cursor.execute(
                 """
                 INSERT INTO predictions (
+
                     age,
                     gender,
                     year_of_study,
+
                     attendance_percentage,
                     average_grade,
                     failed_subjects,
+
                     assignments_completed_percentage,
                     engagement_score,
+
                     study_hours_per_day,
                     online_learning_hours_per_week,
+
                     family_income_inr,
+
                     scholarship,
                     part_time_job,
+
                     financial_stress_score,
                     distance_from_college_km,
+
                     internet_access,
                     parental_support,
                     extracurricular_activities,
                     disciplinary_issues,
+
                     dropout_probability,
                     risk_level,
                     prediction
+
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+                VALUES (
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+                )
                 """,
                 (
-                    sqlite_value(row["Age"]),
-                    sqlite_value(row["Gender"]),
-                    sqlite_value(row["Year_of_Study"]),
-                    sqlite_value(row["Attendance_Percentage"]),
-                    sqlite_value(row["Average_Grade"]),
-                    sqlite_value(row["Failed_Subjects"]),
-                    sqlite_value(row["Assignments_Completed_Percentage"]),
-                    sqlite_value(row["Engagement_Score"]),
-                    sqlite_value(row["Study_Hours_Per_Day"]),
-                    sqlite_value(row["Online_Learning_Hours_Per_Week"]),
-                    sqlite_value(row["Family_Income_INR"]),
-                    sqlite_value(row["Scholarship"]),
-                    sqlite_value(row["Part_Time_Job"]),
-                    sqlite_value(row["Financial_Stress_Score"]),
-                    sqlite_value(row["Distance_From_College_KM"]),
-                    sqlite_value(row["Internet_Access"]),
-                    sqlite_value(row["Parental_Support"]),
-                    sqlite_value(row["Extracurricular_Activities"]),
-                    sqlite_value(row["Disciplinary_Issues"]),
-                    sqlite_value(row["Dropout_Probability"]),
-                    sqlite_value(row["Risk_Level"]),
-                    sqlite_value(row["Prediction"])
+
+                    sqlite_value(
+                        row["Age"]
+                    ),
+
+                    sqlite_value(
+                        row["Gender"]
+                    ),
+
+                    sqlite_value(
+                        row["Year_of_Study"]
+                    ),
+
+                    sqlite_value(
+                        row["Attendance_Percentage"]
+                    ),
+
+                    sqlite_value(
+                        row["Average_Grade"]
+                    ),
+
+                    sqlite_value(
+                        row["Failed_Subjects"]
+                    ),
+
+                    sqlite_value(
+                        row[
+                            "Assignments_Completed_Percentage"
+                        ]
+                    ),
+
+                    sqlite_value(
+                        row["Engagement_Score"]
+                    ),
+
+                    sqlite_value(
+                        row["Study_Hours_Per_Day"]
+                    ),
+
+                    sqlite_value(
+                        row[
+                            "Online_Learning_Hours_Per_Week"
+                        ]
+                    ),
+
+                    sqlite_value(
+                        row["Family_Income_INR"]
+                    ),
+
+                    sqlite_value(
+                        row["Scholarship"]
+                    ),
+
+                    sqlite_value(
+                        row["Part_Time_Job"]
+                    ),
+
+                    sqlite_value(
+                        row["Financial_Stress_Score"]
+                    ),
+
+                    sqlite_value(
+                        row["Distance_From_College_KM"]
+                    ),
+
+                    sqlite_value(
+                        row["Internet_Access"]
+                    ),
+
+                    sqlite_value(
+                        row["Parental_Support"]
+                    ),
+
+                    sqlite_value(
+                        row[
+                            "Extracurricular_Activities"
+                        ]
+                    ),
+
+                    sqlite_value(
+                        row["Disciplinary_Issues"]
+                    ),
+
+                    sqlite_value(
+                        row["Dropout_Probability"]
+                    ),
+
+                    sqlite_value(
+                        row["Risk_Level"]
+                    ),
+
+                    sqlite_value(
+                        row["Prediction"]
+                    )
+
                 )
+
             )
 
         connection.commit()
 
         connection.close()
 
-        # Save bulk output
+        # -------------------------------------------------
+        # SAVE BULK OUTPUT
+        # -------------------------------------------------
+
         df.to_csv(
             BULK_OUTPUT_FILE,
             index=False
         )
 
         return {
-            "message": "Bulk prediction completed successfully.",
-            "total_students": len(df),
-            "results": df.to_dict(
-                orient="records"
-            )
+
+            "message":
+                "Bulk prediction completed successfully.",
+
+            "total_students":
+                len(df),
+
+            "results":
+                df.to_dict(
+                    orient="records"
+                )
+
         }
 
     except HTTPException:
+
         raise
 
     except Exception as e:
 
         raise HTTPException(
+
             status_code=500,
+
             detail=str(e)
+
         )
 
 
@@ -517,14 +790,23 @@ def download_bulk_predictions():
     ):
 
         raise HTTPException(
+
             status_code=404,
-            detail="Bulk prediction file not found."
+
+            detail=
+                "Bulk prediction file not found."
+
         )
 
     return FileResponse(
+
         BULK_OUTPUT_FILE,
+
         media_type="text/csv",
-        filename="bulk_predictions.csv"
+
+        filename=
+            "bulk_predictions.csv"
+
     )
 
 
@@ -548,31 +830,43 @@ def get_predictions():
         cursor.execute(
             """
             SELECT
+
                 id,
                 age,
                 gender,
                 year_of_study,
+
                 attendance_percentage,
                 average_grade,
                 failed_subjects,
+
                 assignments_completed_percentage,
                 engagement_score,
+
                 study_hours_per_day,
                 online_learning_hours_per_week,
+
                 family_income_inr,
+
                 scholarship,
                 part_time_job,
+
                 financial_stress_score,
                 distance_from_college_km,
+
                 internet_access,
                 parental_support,
                 extracurricular_activities,
                 disciplinary_issues,
+
                 dropout_probability,
                 risk_level,
                 prediction,
+
                 created_at
+
             FROM predictions
+
             ORDER BY id DESC
             """
         )
@@ -582,15 +876,21 @@ def get_predictions():
         connection.close()
 
         return [
+
             dict(row)
+
             for row in rows
+
         ]
 
     except Exception as e:
 
         raise HTTPException(
+
             status_code=500,
+
             detail=str(e)
+
         )
 
 
@@ -600,43 +900,58 @@ def get_predictions():
 
 @app.get("/export-predictions")
 def export_predictions(
+
     risk: str = "ALL",
+
     format: str = "csv"
+
 ):
 
     # -------------------------------------------------
-    # VALIDATE RISK
+    # VALIDATE
     # -------------------------------------------------
 
     risk = risk.upper()
+
     format = format.lower()
 
     allowed_risks = [
+
         "ALL",
         "LOW",
         "MEDIUM",
         "HIGH"
+
     ]
 
     allowed_formats = [
+
         "csv",
         "xlsx",
         "pdf"
+
     ]
 
     if risk not in allowed_risks:
 
         raise HTTPException(
+
             status_code=400,
+
             detail="Invalid risk level."
+
         )
 
     if format not in allowed_formats:
 
         raise HTTPException(
+
             status_code=400,
+
             detail="Invalid export format."
+
         )
+
 
     # -------------------------------------------------
     # READ DATABASE
@@ -650,30 +965,41 @@ def export_predictions(
 
         query = """
             SELECT
+
                 id,
                 age,
                 gender,
                 year_of_study,
+
                 attendance_percentage,
                 average_grade,
                 failed_subjects,
+
                 assignments_completed_percentage,
                 engagement_score,
+
                 study_hours_per_day,
                 online_learning_hours_per_week,
+
                 family_income_inr,
+
                 scholarship,
                 part_time_job,
+
                 financial_stress_score,
                 distance_from_college_km,
+
                 internet_access,
                 parental_support,
                 extracurricular_activities,
                 disciplinary_issues,
+
                 dropout_probability,
                 risk_level,
                 prediction,
+
                 created_at
+
             FROM predictions
         """
 
@@ -685,16 +1011,22 @@ def export_predictions(
                 WHERE UPPER(risk_level) = ?
             """
 
-            params = (risk,)
+            params = (
+                risk,
+            )
 
         query += """
             ORDER BY id DESC
         """
 
         df = pd.read_sql_query(
+
             query,
+
             connection,
+
             params=params
+
         )
 
         connection.close()
@@ -702,8 +1034,13 @@ def export_predictions(
     except Exception as e:
 
         raise HTTPException(
+
             status_code=500,
-            detail=f"Could not read prediction history: {str(e)}"
+
+            detail=
+                "Could not read prediction history: "
+                + str(e)
+
         )
 
 
@@ -714,40 +1051,93 @@ def export_predictions(
     if df.empty:
 
         raise HTTPException(
+
             status_code=404,
-            detail=f"No prediction records found for {risk} risk."
+
+            detail=
+                f"No prediction records found for {risk} risk."
+
         )
 
 
     # -------------------------------------------------
-    # COLUMN NAMES FOR EXPORT
+    # EXPORT COLUMN NAMES
     # -------------------------------------------------
 
     export_columns = {
-        "id": "Prediction ID",
-        "age": "Age",
-        "gender": "Gender",
-        "year_of_study": "Year of Study",
-        "attendance_percentage": "Attendance (%)",
-        "average_grade": "Average Grade",
-        "failed_subjects": "Failed Subjects",
-        "assignments_completed_percentage": "Assignments Completed (%)",
-        "engagement_score": "Engagement Score",
-        "study_hours_per_day": "Study Hours / Day",
-        "online_learning_hours_per_week": "Online Learning Hours / Week",
-        "family_income_inr": "Family Income (INR)",
-        "scholarship": "Scholarship",
-        "part_time_job": "Part Time Job",
-        "financial_stress_score": "Financial Stress Score",
-        "distance_from_college_km": "Distance From College (KM)",
-        "internet_access": "Internet Access",
-        "parental_support": "Parental Support",
-        "extracurricular_activities": "Extracurricular Activities",
-        "disciplinary_issues": "Disciplinary Issues",
-        "dropout_probability": "Dropout Probability (%)",
-        "risk_level": "Risk Level",
-        "prediction": "Prediction",
-        "created_at": "Created At"
+
+        "id":
+            "Prediction ID",
+
+        "age":
+            "Age",
+
+        "gender":
+            "Gender",
+
+        "year_of_study":
+            "Year of Study",
+
+        "attendance_percentage":
+            "Attendance (%)",
+
+        "average_grade":
+            "Average Grade",
+
+        "failed_subjects":
+            "Failed Subjects",
+
+        "assignments_completed_percentage":
+            "Assignments Completed (%)",
+
+        "engagement_score":
+            "Engagement Score",
+
+        "study_hours_per_day":
+            "Study Hours / Day",
+
+        "online_learning_hours_per_week":
+            "Online Learning Hours / Week",
+
+        "family_income_inr":
+            "Family Income (INR)",
+
+        "scholarship":
+            "Scholarship",
+
+        "part_time_job":
+            "Part Time Job",
+
+        "financial_stress_score":
+            "Financial Stress Score",
+
+        "distance_from_college_km":
+            "Distance From College (KM)",
+
+        "internet_access":
+            "Internet Access",
+
+        "parental_support":
+            "Parental Support",
+
+        "extracurricular_activities":
+            "Extracurricular Activities",
+
+        "disciplinary_issues":
+            "Disciplinary Issues",
+
+        "dropout_probability":
+            "Dropout Probability (%)",
+
+        "risk_level":
+            "Risk Level",
+
+        "prediction":
+            "Prediction",
+
+        "created_at":
+            "Created At"
+
     }
 
     df = df.rename(
@@ -783,12 +1173,20 @@ def export_predictions(
         output.seek(0)
 
         return StreamingResponse(
-            iter([output.getvalue()]),
+
+            iter([
+                output.getvalue()
+            ]),
+
             media_type="text/csv",
+
             headers={
+
                 "Content-Disposition":
                     f'attachment; filename="{filename}"'
+
             }
+
         )
 
 
@@ -804,103 +1202,162 @@ def export_predictions(
 
         worksheet = workbook.active
 
-        worksheet.title = "Prediction History"
+        worksheet.title = (
+            "Prediction History"
+        )
 
         # Title
         worksheet.merge_cells(
+
             start_row=1,
+
             start_column=1,
+
             end_row=1,
+
             end_column=len(df.columns)
+
         )
 
         title_cell = worksheet.cell(
+
             row=1,
+
             column=1
+
         )
 
         title_cell.value = (
-            f"StudentGuard AI - "
-            f"{risk_name.upper()} Risk Predictions"
+
+            "StudentGuard AI - "
+
+            + f"{risk_name.upper()} "
+
+            + "Risk Predictions"
+
         )
 
         title_cell.font = Font(
+
             bold=True,
+
             size=14
+
         )
 
         title_cell.alignment = Alignment(
+
             horizontal="center"
+
         )
 
         # Generated time
         worksheet.merge_cells(
+
             start_row=2,
+
             start_column=1,
+
             end_row=2,
+
             end_column=len(df.columns)
+
         )
 
         generated_cell = worksheet.cell(
+
             row=2,
+
             column=1
+
         )
 
         generated_cell.value = (
+
             "Generated: "
+
             + datetime.now().strftime(
                 "%Y-%m-%d %H:%M:%S"
             )
+
         )
 
         generated_cell.alignment = Alignment(
+
             horizontal="center"
+
         )
 
-        # Header row
+        # Header
         header_row = 4
 
         for col_index, column_name in enumerate(
+
             df.columns,
+
             start=1
+
         ):
 
             cell = worksheet.cell(
+
                 row=header_row,
+
                 column=col_index
+
             )
 
             cell.value = column_name
 
             cell.font = Font(
+
                 bold=True,
+
                 color="FFFFFF"
+
             )
 
             cell.fill = PatternFill(
+
                 fill_type="solid",
+
                 fgColor="5C1D2B"
+
             )
 
             cell.alignment = Alignment(
+
                 horizontal="center",
+
                 vertical="center"
+
             )
 
         # Data
         for row_index, row in enumerate(
-            df.itertuples(index=False),
+
+            df.itertuples(
+                index=False
+            ),
+
             start=header_row + 1
+
         ):
 
             for col_index, value in enumerate(
+
                 row,
+
                 start=1
+
             ):
 
                 cell = worksheet.cell(
+
                     row=row_index,
+
                     column=col_index
+
                 )
 
                 if pd.isna(value):
@@ -934,6 +1391,7 @@ def export_predictions(
                     )
 
                 except Exception:
+
                     pass
 
             worksheet.column_dimensions[
@@ -950,16 +1408,22 @@ def export_predictions(
         output.seek(0)
 
         return StreamingResponse(
+
             output,
+
             media_type=(
                 "application/"
                 "vnd.openxmlformats-officedocument."
                 "spreadsheetml.sheet"
             ),
+
             headers={
+
                 "Content-Disposition":
                     f'attachment; filename="{filename}"'
+
             }
+
         )
 
 
@@ -972,19 +1436,28 @@ def export_predictions(
         output = io.BytesIO()
 
         document = SimpleDocTemplate(
+
             output,
+
             pagesize=landscape(A4),
+
             rightMargin=20,
+
             leftMargin=20,
+
             topMargin=20,
+
             bottomMargin=20
+
         )
 
         styles = getSampleStyleSheet()
 
         title_style = styles["Title"]
 
-        title_style.alignment = TA_CENTER
+        title_style.alignment = (
+            TA_CENTER
+        )
 
         normal_style = styles["Normal"]
 
@@ -992,48 +1465,76 @@ def export_predictions(
 
         # Title
         elements.append(
+
             Paragraph(
+
                 "StudentGuard AI",
+
                 title_style
+
             )
+
         )
 
         elements.append(
+
             Paragraph(
+
                 "Student Dropout Prediction History",
+
                 styles["Heading2"]
+
             )
+
         )
 
         elements.append(
+
             Paragraph(
+
                 f"Risk Filter: {risk_name.upper()}",
+
                 normal_style
+
             )
+
         )
 
         elements.append(
+
             Paragraph(
+
                 "Generated: "
+
                 + datetime.now().strftime(
                     "%Y-%m-%d %H:%M:%S"
                 ),
+
                 normal_style
+
             )
+
         )
 
         elements.append(
+
             Paragraph(
+
                 f"Total Records: {len(df)}",
+
                 normal_style
+
             )
+
         )
 
         elements.append(
+
             Spacer(
                 1,
                 12
             )
+
         )
 
         # -------------------------------------------------
@@ -1041,6 +1542,7 @@ def export_predictions(
         # -------------------------------------------------
 
         pdf_columns = [
+
             "Prediction ID",
             "Age",
             "Year of Study",
@@ -1051,6 +1553,7 @@ def export_predictions(
             "Risk Level",
             "Prediction",
             "Created At"
+
         ]
 
         pdf_df = df[
@@ -1058,24 +1561,39 @@ def export_predictions(
         ].copy()
 
         table_data = [
+
             pdf_columns
+
         ]
 
         for _, row in pdf_df.iterrows():
 
             table_data.append(
+
                 [
+
                     str(row[column])
-                    if not pd.isna(row[column])
+
+                    if not pd.isna(
+                        row[column]
+                    )
+
                     else ""
+
                     for column in pdf_columns
+
                 ]
+
             )
 
         table = Table(
+
             table_data,
+
             repeatRows=1,
+
             colWidths=[
+
                 45,
                 30,
                 55,
@@ -1086,12 +1604,17 @@ def export_predictions(
                 50,
                 145,
                 90
+
             ]
+
         )
 
         table.setStyle(
+
             TableStyle(
+
                 [
+
                     (
                         "BACKGROUND",
                         (0, 0),
@@ -1100,36 +1623,42 @@ def export_predictions(
                             "#5C1D2B"
                         )
                     ),
+
                     (
                         "TEXTCOLOR",
                         (0, 0),
                         (-1, 0),
                         colors.white
                     ),
+
                     (
                         "FONTNAME",
                         (0, 0),
                         (-1, 0),
                         "Helvetica-Bold"
                     ),
+
                     (
                         "FONTSIZE",
                         (0, 0),
                         (-1, -1),
                         6
                     ),
+
                     (
                         "ALIGN",
                         (0, 0),
                         (-1, -1),
                         "CENTER"
                     ),
+
                     (
                         "VALIGN",
                         (0, 0),
                         (-1, -1),
                         "MIDDLE"
                     ),
+
                     (
                         "GRID",
                         (0, 0),
@@ -1137,6 +1666,7 @@ def export_predictions(
                         0.4,
                         colors.grey
                     ),
+
                     (
                         "ROWBACKGROUNDS",
                         (0, 1),
@@ -1148,33 +1678,48 @@ def export_predictions(
                             )
                         ]
                     ),
+
                     (
                         "TOPPADDING",
                         (0, 0),
                         (-1, -1),
                         4
                     ),
+
                     (
                         "BOTTOMPADDING",
                         (0, 0),
                         (-1, -1),
                         4
                     )
+
                 ]
+
             )
+
         )
 
-        elements.append(table)
+        elements.append(
+            table
+        )
 
-        document.build(elements)
+        document.build(
+            elements
+        )
 
         output.seek(0)
 
         return StreamingResponse(
+
             output,
+
             media_type="application/pdf",
+
             headers={
+
                 "Content-Disposition":
                     f'attachment; filename="{filename}"'
+
             }
+
         )
